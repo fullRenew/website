@@ -1,0 +1,26 @@
+---
+import WhatsAppButton from "@/components/WhatsAppButton.astro";
+
+const whatsappMessage = {
+    url: 'https://wa.me/',
+    phone: '604846040',
+    text: 'Hola, quiero saber más sobre sus servicios'
+}
+
+const whatsappHref = `${whatsappMessage.url}${whatsappMessage.phone}?text=${whatsappMessage.text}`
+---
+<section class="grid md:grid-cols-3 gap-6 justify-items-center">
+    <span class="col-span-2 flex flex-col gap-4 md:gap-6 md:sticky top-10">
+        <h2 class="text-white text-xl md:text-3xl font-bold">Compra stock con 100% de bateria</h2>
+        <div class="flex flex-col col-span-2 gap-3 md:gap-4">
+            <p class="text-neutral-300 text-sm md:text-base">Ofrecemos baterías con una salud renovada al 100%, listas para rendir al máximo. Utilizamos celdas de alta calidad, tecnología de soldadura láser y realizamos rigurosos tests de rendimiento para garantizar una durabilidad excepcional. Con nuestra amplia experiencia técnica, proporcionamos baterías que cumplen con los estándares más exigentes. Además, contamos con precios competitivos especialmente diseñados para empresas, asegurando una excelente relación calidad-precio.</p>
+            <p class="text-neutral-300 text-sm md:text-base">Potencia tus dispositivos con la confianza de una batería que ofrece rendimiento y fiabilidad desde el primer momento, a un costo optimizado para tu negocio.</p>
+        </div>
+        <span class="w-full flex flex-row justify-end md:justify-start">
+            <WhatsAppButton whatsappHref={whatsappHref}>
+                Contactanos
+            </WhatsAppButton>
+        </span>
+    </span>
+    <video class="h-auto w-2/3 col-span-2 md:row-span-2 md:col-span-1 rounded-md min-w-56 max-w-80" src="./microsoldadura.mp4" autoplay muted loop></video>
+</section>

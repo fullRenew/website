@@ -1,0 +1,27 @@
+---
+import Email from "@/icons/Email.astro";
+import Phone from "@/icons/Phone.astro";
+import Position from "@/icons/Position.astro";
+---
+<section id="contactUs" class="flex flex-row w-full justify-center scroll-mt-32">
+    <span class="grid md:grid-cols-3 w-5/6 gap-6 md:gap-12">
+        <a href="tel:+34604846040" class="flex flex-col items-center gap-3 md:gap-4 hover:scale-105 transition-all">
+            <Phone class="w-10 h-10 text-white"></Phone>
+            <h3 class="text-white text-lg md:text-xl font-bold">LLAMANOS</h3>
+            <p class="text-sm md:text-base text-neutral-300 font-semibold">+34 604 84 60 40 (ventas)</p>
+        </a>
+        <a href="mailto:ventas@fullrenew.es" class="flex flex-col items-center gap-3 md:gap-4 hover:scale-105 transition-all">
+            <Email class="w-10 h-10 text-white"></Email>
+            <h3 class="text-white text-lg md:text-xl font-bold">ESCRIBENOS</h3>
+            <p class="text-sm md:text-base text-neutral-300 font-semibold">ventas@fullrenew.es</p>
+        </a>
+        <a href="https://maps.app.goo.gl/yoLYvDcmMcHGHw6k6" target="_blank" class="flex flex-col items-center gap-3 md:gap-4 hover:scale-105 transition-all">
+            <Position class="w-10 h-10 text-white"></Position>
+            <h3 class="text-white text-lg md:text-xl font-bold">VISITANOS</h3>
+            <span class="flex flex-col items-center justify-center gap-2">
+                <p class="text-sm md:text-base text-neutral-300 font-semibold">FullRenew SL, Calle Cristo 4</p>
+                <p class="text-sm md:text-base text-neutral-300">Vélez-Málaga, 29700, España</p>
+            </span>
+        </a>
+    </span>
+</section>

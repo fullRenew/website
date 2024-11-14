@@ -1,0 +1,70 @@
+---
+import Close from "@/icons/Close.astro";
+import Menu from "@/icons/Menu.astro";
+import WhatsAppButton from "@/components/WhatsAppButton.astro";
+
+const whatsappMessage = {
+    url: 'https://wa.me/',
+    phone: '604846040',
+    text: 'Hola, quiero saber más sobre sus servicios'
+}
+
+const whatsappHref = `${whatsappMessage.url}${whatsappMessage.phone}?text=${whatsappMessage.text}`
+
+---
+<header id="header" class="flex flex-row justify-between items-end py-5 md:py-8">
+    <img src="./fullrenew-logo.webp" alt="" class="w-40 h-auto">
+    <nav class="hidden sm:flex flex-row items-center gap-4 text-secondary font-bold *:transition-all hover:*:text-primary hover:*:scale-105">
+        <a href="/">Inicio</a>
+        <a href="#aboutUs">Sobre Nosotros</a>
+        <a href="#contactUs">Contactanos</a>
+    </nav>
+    <button class="block sm:hidden" id="menuButton">
+        <Menu class="w-8 h-auto aspect-square text-white"></Menu>
+    </button>
+    <dialog id="menu" class="inset-0 size-full bg-transparent backdrop-blur backdrop:bg-neutral-900/75 backdrop:backdrop-blur">
+        <section class="size-full flex flex-col justify-center items-center">
+            <span class="w-full flex justify-start">
+                <img src="./fullrenew-logo.webp" alt="" class="w-40 h-auto">
+            </span>
+            <nav class="size-full flex flex-col justify-center items-start gap-16 text-secondary text-2xl font-bold hover:*:text-primary hover:*:scale-105 *:transition-all">
+                <!-- TODO: Disable autofocus on mobile menu -->
+                <a id="menuHome" class="outline-none" href="/">Inicio</a>
+                <a id="menuAbout" class="outline-none" href="#aboutUs">Sobre Nosotros</a>
+                <a id="menuContact" class="outline-none" href="#contactUs">Contactanos</a>
+                <form method="dialog" class="size-fit">
+                    <button><Close class="w-8 h-auto aspect-square cursor-pointer"></Close></button>
+                </form>
+            </nav>
+            <span class="w-full flex flex-row justify-end items-center p-4">
+                <WhatsAppButton whatsappHref={whatsappHref}>
+                    Saber Mas
+                </WhatsAppButton>
+            </span>
+        </section>
+    </dialog>
+</header>
+
+<script>
+    const menuButton = document.getElementById("menuButton") as HTMLButtonElement;
+    const menu = document.getElementById("menu") as HTMLDialogElement;
+    const menuHome = document.getElementById("menuHome") as HTMLAnchorElement;
+    const menuAbout = document.getElementById("menuAbout") as HTMLAnchorElement;
+    const menuContact = document.getElementById("menuContact") as HTMLAnchorElement;
+
+    menuButton.addEventListener("click", () => {
+        menu.showModal();
+    });
+
+    menuHome.addEventListener("click", () => {
+        menu.close();
+    });
+
+    menuAbout.addEventListener("click", () => {
+        menu.close();
+    });
+
+    menuContact.addEventListener("click", () => {
+        menu.close();
+    });
+</script>

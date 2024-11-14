@@ -1,0 +1,14 @@
+---
+import Whatsapp from "@/icons/Whatsapp.astro";
+interface Props {
+    whatsappHref: string;
+} 
+
+const { whatsappHref } = Astro.props;
+---
+<a href={whatsappHref} target="_blank" rel="noreferrer" class="group/whatsapp flex flex-row items-center gap-2 bg-whatsapp text-primary py-4 px-6 rounded-full size-fit hover:scale-105 hover:bg-whatsapp_hover transition-all">
+    <Whatsapp class="group-hover/whatsapp:text-whatsapp_text_hover"></Whatsapp>
+    <p class="group-hover/whatsapp:text-whatsapp_text_hover text-sm font-bold">
+        <slot/>
+    </p>
+</a>

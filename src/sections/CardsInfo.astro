@@ -1,0 +1,30 @@
+---
+import Card from "@/components/Card.astro";
+
+const info = [
+    {
+        title: "Cambio de bateria",
+        image: "./cambio-bateria-iphone.webp",
+        description: "Ofrecemos un servicio rápido y confiable para que tu dispositivo recupere su rendimiento original. Utilizamos baterías de alta calidad, adaptadas a cada modelo, y nuestros técnicos aseguran una instalación segura y profesional."
+    },{
+        title: "Reacondicionamiento",
+        image: "./cambio-pantalla-iphone.webp",
+        description: "Dale una nueva vida a tu dispositivo para que luzca y funcione como nuevo. Realizamos una revisión completa, optimizando el rendimiento y asegurando que cada aspecto del dispositivo esté en perfectas condiciones garantizando un reacondicionamiento de alta calidad"
+    },{
+        title: "Limpieza a fondo",
+        image: "./limpieza-iphone.webp",
+        description: "Manten tu dispositivo libre de polvo, suciedad y acumulación de partículas que pueden afectar su rendimiento.  Una limpieza a fondo no solo mejora el aspecto de tu teléfono, sino que también previene problemas como sobrecalentamiento y mejora el rendimiento de sonido y carga."
+    }
+]
+---
+<section class="relative flex flex-row size-full min-h-[400px] justify-center overflow-auto 
+[&::-webkit-scrollbar-track]:bg-background [&::-webkit-scrollbar-thumb]:bg-secondary
+[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar]:h-2">
+    <div class="absolute inset-0 md:static grid grid-cols-3 w-[1296px] md:w-3/4 gap-12">
+        {
+            info.map((item) => {
+                return <Card title={item.title} image={item.image} description={item.description}></Card>
+            })
+        }
+    </div>
+</section>

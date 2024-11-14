@@ -1,0 +1,31 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/sections/Header.astro';
+import Hero from '@/sections/Hero.astro';
+import Slider from '@/components/Slider.astro';
+import OurMission from '@/sections/OurMission.astro';
+import Footer from '@/sections/Footer.astro';
+// import CardsInfo from '@/sections/CardsInfo.astro';
+import AboutUs from '@/sections/AboutUs.astro';
+import ContactUs from '@/sections/ContactUs.astro';
+import BatteryChange from '@/sections/BatteryChange.astro';
+import UsedDevices from '@/sections/UsedDevices.astro';
+import ContactForm from '@/sections/ContactForm.astro';
+---
+
+<Layout title="FullRenew">
+	<main class="size-full flex flex-col gap-10 md:gap-20">
+		<Header></Header>
+		<Hero></Hero>
+		<Slider></Slider>
+		<!-- <CardsInfo></CardsInfo> -->
+		<AboutUs></AboutUs>
+		<UsedDevices></UsedDevices>
+		<ContactUs></ContactUs>
+		<BatteryChange></BatteryChange>
+		<ContactForm></ContactForm>
+		<OurMission></OurMission>
+		<Slider></Slider>
+		<Footer></Footer>
+	</main>
+</Layout>

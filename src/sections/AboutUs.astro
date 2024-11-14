@@ -1,0 +1,88 @@
+---
+import Left from "@/icons/Left.astro";
+import Right from "@/icons/Right.astro";
+
+type ImgData = {
+  src: string;
+  alt: string;
+};
+
+const images: ImgData[] = [
+  { src: "/about-us-1.webp", alt: "About Us Image" },
+  { src: "/about-us-2.webp", alt: "About Us Image" },
+];
+---
+<section id="aboutUs" class="grid md:grid-cols-2 justify-items-center gap-4 md:gap-6 relative min-h-min overflow-visible scroll-mt-32">
+    <span class="flex flex-col gap-4 md:gap-6 md:sticky top-10 overflow-hidden h-fit">
+        <h2 class="text-white text-xl md:text-3xl font-bold">Sobre Nosotros</h2>
+        <div class="flex flex-col gap-3 md:gap-4 text-neutral-300 text-sm md:text-base">
+            <p>
+                Fundamos Fullrenew a finales de 2019, tras nuestra experiencia en una empresa de telefonía especializada en reacondicionamiento. Comenzamos con la venta al consumidor final (B2C) a través de plataformas ecommerce, y con el tiempo, hemos evolucionado para enfocarnos en el mercado mayorista (B2B) en toda Europa, distribuyendo iPhones reacondicionados a empresas y tiendas.
+            </p>
+            <p>
+                Somos dos socios apasionados por la tecnología Apple, con un equipo de 7 personas dedicadas. Estamos siempre a la vanguardia tecnológica y probamos todos nuestros dispositivos con el software Nsystool, garantizando la máxima calidad.
+            </p>
+            <p>
+                Nuestra presencia se extiende por toda Europa, donde trabajamos estrechamente con clientes, proporcionándoles soluciones tecnológicas accesibles y de alta calidad. Además, reinvertimos constantemente en investigación y desarrollo (I+D) para mejorar nuestros productos y procesos, asegurando que nuestros clientes reciban siempre lo mejor en tecnología reacondicionada.
+            </p>
+        </div>
+        <div>
+            <span class=" border-neutral-700 flex flex-row justify-between py-4 px-2">
+                <h2 class="text-neutral-300">Año Fundación</h2>
+                <p class="text-white">2020</p>
+            </span>
+            <span class="border-y border-neutral-700 flex flex-row justify-between py-4 px-2">
+                <h2 class="text-neutral-300">Empleados</h2>
+                <p class="text-white">7</p>
+            </span>
+            <span class="border-neutral-700 flex flex-row justify-between py-4 px-2">
+                <h2 class="text-neutral-300">Dispositivos Vendidos</h2>
+                <p class="text-white">+33000</p>
+            </span>
+        </div>
+    </span>
+    <div class="flex flex-col gap-2">
+        <span id="gallery" class="relative size-full flex flex-row md:flex-col md:gap-4 overflow-hidden">
+            {
+                images.map((image) => (
+                    <img class="h-auto w-full aspect-video rounded-lg" src={image.src} alt={image.alt} />
+                ))
+            }
+        </span>
+        <span class="flex md:hidden text-white w-full flex-row justify-between items-center px-5">
+            <button id="btnLeft">
+                <Left class="text-secondary size-6 hover:text-primary hover:scale-105"></Left>
+            </button>
+            <button id="btnRight">
+                <Right class="text-secondary size-6 hover:text-primary hover:scale-105"></Right>
+            </button>
+        </span>
+    </div>
+</section>
+
+<script>
+    const gallery = document.getElementById('gallery') as HTMLSpanElement;
+    const btnLeft = document.getElementById('btnLeft') as HTMLButtonElement;
+    const btnRight = document.getElementById('btnRight') as HTMLButtonElement;
+    let imgWidth = 0;
+
+    setTimeout(() => {
+        imgWidth = gallery.clientWidth;
+    }, 1000)
+
+    btnLeft.addEventListener('click', () => {
+        if (gallery.scrollLeft <= 0){
+            gallery.scrollLeft = gallery.scrollWidth - gallery.clientWidth;
+        }else{
+            gallery.scrollLeft -= imgWidth;
+        }
+    })
+
+    btnRight.addEventListener('click', () => {
+        if(gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth){
+            gallery.scrollLeft = 0;
+        }else{
+            gallery.scrollLeft += imgWidth;
+        }
+    })
+</script>

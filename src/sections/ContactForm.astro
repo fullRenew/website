@@ -1,0 +1,132 @@
+---
+import Send from "@/icons/Send.astro";
+
+import { europePhoneProfixes } from "@/lib/phonePrefix";
+---
+<section class="flex flex-col gap-3 md:gap-6">
+    <div class="grid md:grid-cols-2 gap-8">
+        <span class="relative grid place-items-center text-white font-bold">
+            <img class="w-full h-auto aspect-video rounded-lg grayscale brightness-50" src="./about-us-1.webp" alt="">
+            <div class="absolute inset-0 flex flex-col justify-center gap-4 md:gap-6 px-5 md:px-10 bg-gradient-to-t from-neutral-900 to-transparent">
+                <h2 class="text-white text-xl md:text-3xl font-bold">Unamos fuerzas</h2>
+                <p class="text-neutral-300 text-sm md:text-base">Complete el siguiente formulario o visítenos en nuestra oficina en Vélez-Málaga para conversar
+                    sobre cómo podemos colaborar en su próximo proyecto. Estaremos encantados de explorar oportunidades juntos y brindarle
+                    soluciones personalizadas para su negocio.</p>
+            </div>
+        </span>
+        <span class="grid place-items-center text-white text-3xl font-bold">
+            <form id="contactForm" class="flex flex-col items-start justify-around w-full h-full gap-4">
+                <span class="flex flex-row gap-4 justify-between w-full">
+                    <input name="name" type="text" placeholder="Nombre*" class="w-full text-sm p-2 outline-none border border-neutral-300 rounded-lg bg-transparent">
+                    <span class="flex flex-row w-fit">
+                        <select name="phone_prefix" class="text-sm p-1 outline-none border-y border-l border-neutral-300 rounded-l-lg bg-transparent">
+                            {
+                                Object.values(europePhoneProfixes).map((value: string) => {
+                                    return <option class="bg-background" value={value}>{value}</option>
+                                })
+                            }
+                        </select>
+                        <input name="phone" type="number" placeholder="Teléfono" class="text-sm p-2 outline-none border border-neutral-300 rounded-r-lg bg-transparent w-fit">
+                    </span>
+                </span>
+                <input name="email" type="text" placeholder="Email*" class="w-full text-sm p-2 outline-none border border-neutral-300 rounded-lg bg-transparent">
+                <span class="flex flex-row gap-4 justify-between w-full">
+                    <input name="company_name" type="text" placeholder="Empresa*" class="text-sm p-2 outline-none border border-neutral-300 rounded-lg bg-transparent">
+                    <input name="subject" type="text" placeholder="Asunto" class="w-full text-sm p-2 outline-none border border-neutral-300 rounded-lg bg-transparent">
+                </span>
+                <textarea name="message" cols="5" placeholder="Mensaje*" 
+                    class="text-sm p-2 outline-none border border-neutral-300 rounded-lg bg-transparent resize-none w-full h-40
+                        [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-secondary
+                        [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar]:w-1.5"></textarea>
+                <span class="w-full flex flex-row justify-between items-center">
+                    <div class="g-recaptcha" data-sitekey="6LeaZ34qAAAAAOhIeH7MITJapG5BjCJ2lok4hWvB" data-action="LOGIN"></div>
+                    <button class="flex flex-row items-center gap-2 bg-neutral-300 text-neutral-900 py-4 px-8 rounded-full size-fit hover:scale-105 hover:bg-primary transition-all">
+                        <p class="text-sm font-bold">Enviar</p>
+                        <Send></Send>
+                    </button>
+                </span>
+            </form>
+        </span>
+    </div>
+</section>
+
+<style>
+    /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+
+<script>
+    import { toast } from "wc-toast";
+
+    const contactForm = document.getElementById("contactForm") as HTMLFormElement;
+    
+    contactForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const form = event.target as HTMLFormElement;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+
+        try{
+            if (!data.name || !data.company_name || !data.email || !data.message ) {
+                // document.getElementsByName("name")[0].classList.add("placeholder-red-300 border border-red-400");
+                // document.getElementsByName("company_name")[0].classList.add("placeholder-red-300 border border-red-400");
+                // document.getElementsByName("email")[0].classList.add("placeholder-red-300 border border-red-400");
+                // document.getElementsByName("message")[0].classList.add("placeholder-red-300 border border-red-400");
+                throw new Error('Rellena los campos obligatorios');
+            }
+
+            if (!data.name.toString().match(/^[a-zA-Z\D]{3,}$/)){
+                throw new Error('Nombre no valido');
+            }
+
+            if (!data.company_name.toString().match(/^[a-zA-Z]{3,}$/)){
+                throw new Error('Nombre de empresa no valido');
+            }
+
+            if (!data.phone){
+                data.phone_prefix = "";
+                data.phone = "No definido";
+            }
+
+            if (!data.phone.toString().match(/^[0-9]{7,13}$|^No definido$/)){
+                throw new Error('Teléfono no valido');
+            }
+            
+            if (!data.email.toString().match(/^[a-zA-Z0-9._%+'-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)){
+                throw new Error('Email no valido');
+            }
+            
+            if (!data.subject) data.subject = "No definido";
+
+            if (!data['g-recaptcha-response']){
+                throw new Error('reCAPTCHA no verificado');
+            }
+
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok){
+                toast.success("Mensaje enviado correctamente", {duration: 2500});
+                form.reset()
+            }
+        } catch (error) {
+            if (error) toast.error(error.toString(), {duration: 2500});
+        }
+
+    });
+</script>
